@@ -35,3 +35,6 @@ model Subreddit {
   name  String
   posts Post[]
 }
+
+model Vote {
+}
