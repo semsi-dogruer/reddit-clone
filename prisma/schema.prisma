@@ -13,28 +13,42 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique
-  email    String @unique
-  password String
-  posts    Post[]
+  id         String      @id @default(uuid())
+  username   String      @unique
+  password   String
+  subreddits Subreddit[]
+  posts      Post[]
+  votes      Vote[]
 }
 
 model Post {
   id          String    @id @default(uuid())
   title       String
   message     String
+  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
   user        User      @relation(fields: [userId], references: [id])
   userId      String
-  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
   subredditId String
+  votes       Vote[]
+  parent      Post?     @relation("post", fields: [parentId], references: [id])
+  children    Post[]    @relation("post")
+  parentId    String?
 }
 
 model Subreddit {
-  id    String @id @default(uuid())
-  name  String
-  posts Post[]
+  id        String   @id @default(uuid())
+  name      String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  posts     Post[]
+  createdAt DateTime @default(now())
 }
 
 model Vote {
+  id       String  @id @default(uuid())
+  user     User    @relation(fields: [userId], references: [id])
+  userId   String
+  post     Post    @relation(fields: [postId], references: [id])
+  postId   String
+  isUpvote Boolean
 }
