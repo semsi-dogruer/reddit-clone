@@ -1,27 +1,17 @@
 // CreateSubredditButton.js
 "use client";
 
-import { useRouter } from "next/navigation.js";
 import { useState } from "react";
 
-const NewSubreddit = ({ user }) => {
+const CreateSubredditButton = ({ isLoggedIn, onUpdateSubreddits }) => {
   const [subredditName, setSubredditName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter();
 
   const handleCreateSubreddit = async () => {
-    if (!user) {
+    if (!isLoggedIn) {
       setErrorMessage("Please log in to create a subreddit!");
       return;
     }
-    console.log("add subreddit");
-    const response = await fetch(`/api/subreddits`, {
-      method: "POST",
-      body: JSON.stringify({
-        name: subredditName,
-      }),
-    });
-    router.refresh();
 
     try {
       // ... (rest of the code remains unchanged)
@@ -46,4 +36,4 @@ const NewSubreddit = ({ user }) => {
   );
 };
 
-export default NewSubreddit;
+export default CreateSubredditButton;

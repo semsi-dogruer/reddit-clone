@@ -1,3 +1,6 @@
+import { fetchUser } from "@/lib/fetchUser.js";
+
 export default function Home() {
-  return <div>hi</div>;
+  const user = fetchUser();
+  return <div>Dive into anything!</div>;
 }

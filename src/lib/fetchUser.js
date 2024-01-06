@@ -7,7 +7,7 @@ export async function fetchUser() {
     const cookieStore = cookies();
     const userCookie = cookieStore.get("token");
     if (!userCookie) {
-      return {};
+      return null;
     }
     const decodedToken = jwt.verify(userCookie.value, process.env.JWT_SECRET);
     const { userId } = decodedToken;
@@ -16,6 +16,6 @@ export async function fetchUser() {
     return user;
   } catch (error) {
     console.log(error);
-    return {};
+    return null;
   }
 }
