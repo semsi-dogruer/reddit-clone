@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import NewSubreddit from "@/components/NewSubreddit.jsx";
 import { fetchUser } from "@/lib/fetchUser.js";
 import { prisma } from "@/lib/prisma.js";
